@@ -69,7 +69,7 @@ namespace CSSerialProber
                     {
                         try
                         {
-                            string response = port.ReadLine();
+                            string response = port.ReadLine().Trim();
                             if (response.Equals(pongMsg, StringComparison.Ordinal))
                             {
                                 receivedPortName = port.PortName;
@@ -82,6 +82,7 @@ namespace CSSerialProber
 
                     try
                     {
+                        port.WriteTimeout = timeout;
                         port.DataReceived += DataReceivedHandler;
                         port.Open();
                         port.WriteLine(pingMsg);
